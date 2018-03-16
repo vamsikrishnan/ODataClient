@@ -21,7 +21,9 @@
         <b>2.Request Specific Resource</b>
     </p>
     <input class="form-control" type="text" [(ngModel)]="SearchName">
-    <button (click)="getOdata()">Search</button>
+    <button (click)="getOdata()">Search by client call</button>
+    <button (click)="reset()">Reset</button>
+    <button (click)="getPeopleByCriteria()">Search using Server API</button>
     <br>
     <div>
         <textarea rows="8" cols="100">{{ Odatares }}</textarea>

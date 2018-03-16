@@ -30,6 +30,15 @@ namespace ODataClient.Controllers
         }
 
         [HttpGet]
+        [Route("GetPeopleByCriteria")]
+         public  async Task<string> GetPeopleByCriteria(string criteria)
+        {
+             var stringTask = client.GetStringAsync("http://services.odata.org/v4/TripPinServiceRW/People('"+ criteria+"')");
+             var msg= await stringTask;
+             return msg;
+        }
+
+        [HttpGet]
         public async Task<IActionResult> QueryData(string results, string filter, string filterValue)
         {
             if (string.IsNullOrEmpty(results) ||
