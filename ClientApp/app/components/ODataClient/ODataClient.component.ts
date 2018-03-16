@@ -11,8 +11,43 @@ export class ODataClientComponent {
     public resultsLimit:Number;
     public filterValue:Number;
     public jResult:string;
+    public Odatares: string;
+    public Odataresults: string;
+    public OdataserverResults: string;
+    public SearchName: string;
     
     constructor(private http: Http, @Inject('BASE_URL') private baseUrl: string){
+    }
+
+    public getRecords()
+    {
+        this.http.get(this.baseUrl + 'api/ODataClient/GetPeople').subscribe(result => {
+            this.OdataserverResults = JSON.stringify(result) as string;
+        }, error => console.error(error));
+
+    }
+
+    public getPeopleByCriteria()
+    {
+        this.http.get(this.baseUrl + 'api/ODataClient/GetPeopleByCriteria?criteria='+this.SearchName).subscribe(result => {
+            this.Odatares = JSON.stringify(result) as string;
+        }, error => console.error(error));
+
+    }
+
+    public reset(){
+        this.Odatares = '';
+    }
+    public getAllRecords() {
+        this.http.get("http://services.odata.org/v4/TripPinServiceRW/People").subscribe(result => {
+            this.Odataresults = JSON.stringify(result) as string;
+        }, error => console.error(error));
+    }
+
+    public getOdata() {
+        this.http.get("http://services.odata.org/v4/TripPinServiceRW/People('"+ this.SearchName  +"')").subscribe(result => {
+            this.Odatares = JSON.stringify(result) as string;
+        }, error => console.error(error));
     }
 
     QueryData(event:any){

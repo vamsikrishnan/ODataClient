@@ -1,17 +1,33 @@
 <br/>
 <p class="page-header">Examples</p>
 <div>
-    <p>
-        <b>1.Request Resource</b>
-    </p>
-
+    
+        <b>1.Request Resource</b><br>
+        <button (click)="getRecords()">Make Server Call</button>
+        <br>
+        <div>
+            <textarea rows="8" cols="100">{{ OdataserverResults }}</textarea>
+        </div>
+        <br>
+        <button (click)="getAllRecords()">Make Client Call</button>
+        <br>
+        <div>
+            <textarea rows="8" cols="100">{{ Odataresults }}</textarea>
+        </div>
 </div>
 <hr>
 <div>
     <p>
         <b>2.Request Specific Resource</b>
     </p>
-
+    <input class="form-control" type="text" [(ngModel)]="SearchName">
+    <button (click)="getOdata()">Search by client call</button>
+    <button (click)="reset()">Reset</button>
+    <button (click)="getPeopleByCriteria()">Search using Server API</button>
+    <br>
+    <div>
+        <textarea rows="8" cols="100">{{ Odatares }}</textarea>
+    </div>
 </div>
 <hr>
 <div>
@@ -24,9 +40,10 @@
         </p>
         <p>Filter Criteria :
             <select id="drpFilterOptions" [(ngModel)]="filter">
-                <option id="opt1" value="1" ><</option>
-                <option id="opt2" value="2">
-                ></option>
+                <option id="opt1" value="1">
+                    <</option>
+                        <option id="opt2" value="2">
+                            ></option>
             </select>
             Value :
             <input type="text" id="txtValueCriteria" [(ngModel)]="filterValue" />
@@ -36,7 +53,7 @@
         <div>
             <p>
                 <b>Results:</b>
-               
+
             </p>
             <textarea id="FilterQueryResults" rows="5" cols="100" value={{jResult}}></textarea>
         </div>

@@ -8,23 +8,35 @@ using System.Web;
 using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
-
+using ODataClient.Model;
 
 namespace ODataClient.Controllers
 {
     [Route("api/[controller]")]
     public class ODataClientController : Controller
     {
-        // public IActionResult Index()
-        // {
-        //     return View();
-        // }
+        private static readonly HttpClient client = new HttpClient();
 
-        // public IActionResult Error()
-        // {
-        //     ViewData["RequestId"] = Activity.Current?.Id ?? HttpContext.TraceIdentifier;
-        //     return View();
-        // }
+        [HttpGet]
+        [Route("GetPeople")]
+         public  async Task<string> GetPeople()
+        {
+             var stringTask = client.GetStringAsync("http://services.odata.org/v4/TripPinServiceRW/People");
+
+             var msg= await stringTask;
+
+             return msg;
+              
+        }
+
+        [HttpGet]
+        [Route("GetPeopleByCriteria")]
+         public  async Task<string> GetPeopleByCriteria(string criteria)
+        {
+             var stringTask = client.GetStringAsync("http://services.odata.org/v4/TripPinServiceRW/People('"+ criteria+"')");
+             var msg= await stringTask;
+             return msg;
+        }
 
         [HttpGet]
         public async Task<IActionResult> QueryData(string results, string filter, string filterValue)
@@ -55,8 +67,8 @@ namespace ODataClient.Controllers
 
             var baseUrl = "http://services.odata.org/v4/(S(34wtn2c0hkuk5ekg0pjr513b))/TripPinServiceRW/";
             var url = baseUrl + "People?$top=" +resultCount + " & $select=FirstName, LastName & $filter=Trips/any(d:d/Budget "+ criteria +" "+filterValue +")";
-            HttpClient httpClient = new HttpClient();
-            var res = await httpClient.GetStringAsync(url);
+
+            var res = await client.GetStringAsync(url);
             return new JsonResult(res);
         }
     }
