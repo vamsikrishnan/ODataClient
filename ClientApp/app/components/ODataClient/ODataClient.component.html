@@ -1,0 +1,45 @@
+<br/>
+<p class="page-header">Examples</p>
+<div>
+    <p>
+        <b>1.Request Resource</b>
+    </p>
+
+</div>
+<hr>
+<div>
+    <p>
+        <b>2.Request Specific Resource</b>
+    </p>
+
+</div>
+<hr>
+<div>
+    <p>
+        <b>3.Query Resource</b>
+    </p>
+    <div>
+        <p>Number of results :
+            <input type="text" id="txtResults" [(ngModel)]="resultsLimit" />
+        </p>
+        <p>Filter Criteria :
+            <select id="drpFilterOptions" [(ngModel)]="filter">
+                <option id="opt1" value="1" ><</option>
+                <option id="opt2" value="2">
+                ></option>
+            </select>
+            Value :
+            <input type="text" id="txtValueCriteria" [(ngModel)]="filterValue" />
+        </p>
+        <input type="button" id="btnGetData" value="Query Data" (click)="QueryData($event)" />
+        <br />
+        <div>
+            <p>
+                <b>Results:</b>
+               
+            </p>
+            <textarea id="FilterQueryResults" rows="5" cols="100" value={{jResult}}></textarea>
+        </div>
+    </div>
+</div>
+<hr>
